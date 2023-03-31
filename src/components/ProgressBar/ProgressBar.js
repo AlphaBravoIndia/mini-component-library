@@ -24,7 +24,13 @@ const SIZES = {
 const ProgressBar = ({ value, size }) => {
   const styles = SIZES[size];
   return (
-    <Wrapper role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow={value} style={styles}>
+    <Wrapper
+      role='progressbar'
+      aria-valuemin='0'
+      aria-valuemax='100'
+      aria-valuenow={value}
+      style={styles}
+    >
       <VisuallyHidden>{value}%</VisuallyHidden>
       <BarWrapper>
         <Bar value={value} style={styles}></Bar>
@@ -41,14 +47,16 @@ const Wrapper = styled.div`
 `;
 
 const BarWrapper = styled.div`
-  overflow: hidden;
   border-radius: 4px;
+  /* Trim corners when value is close to the end */
+  overflow: hidden;
 `;
 
 const Bar = styled.div`
   height: var(--height);
   width: ${p => p.value}%;
   background-color: ${COLORS.primary};
+  border-radius: 4px 0 0 4px;
 `;
 
 
