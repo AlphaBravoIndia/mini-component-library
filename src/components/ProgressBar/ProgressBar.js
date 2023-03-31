@@ -24,26 +24,32 @@ const SIZES = {
 const ProgressBar = ({ value, size }) => {
   const styles = SIZES[size];
   return (
-    <Progress max="100" value={value} style={styles}></Progress>
+    <Wrapper role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow={value} style={styles}>
+      <VisuallyHidden>{value}%</VisuallyHidden>
+      <BarWrapper>
+        <Bar value={value} style={styles}></Bar>
+      </BarWrapper>
+    </Wrapper>
   )
 };
 
-const Progress = styled.progress`
-  height: var(--height);
-  -webkit-appearance: none;
-   appearance: none;
-   
-
-  ::-webkit-progress-bar {
-    background-color: ${COLORS.transparentGray15}; 
-    border-radius: var(--borderRadius);
-    box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
-    padding: var(--padding);
-  }
-  ::-webkit-progress-value {
-    background-color: ${COLORS.primary};
-    border-radius: 4px ${p => p.value >= 99 ? 4 : 0}px ${p => p.value >= 99 ? 4 : 0}px 4px;
-  }
+const Wrapper = styled.div`
+  background-color: ${COLORS.transparentGray15}; 
+  border-radius: var(--borderRadius);
+  box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
+  padding: var(--padding);
 `;
+
+const BarWrapper = styled.div`
+  overflow: hidden;
+  border-radius: 4px;
+`;
+
+const Bar = styled.div`
+  height: var(--height);
+  width: ${p => p.value}%;
+  background-color: ${COLORS.primary};
+`;
+
 
 export default ProgressBar;
