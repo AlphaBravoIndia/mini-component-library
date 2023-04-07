@@ -10,18 +10,16 @@ const Select = ({ label, value, onChange, children }) => {
 
   return (
     <Wrapper>
-      <SelectMenu value={value} onChange={onChange}>
+      <NativeSelect value={value} onChange={onChange}>
         {children}
-      </SelectMenu>
-      <Presentation>
+      </NativeSelect>
+      <Presentation tabindex="0">
         {displayedValue}
-        <IconWrapper>
-          <Icon id="chevron-down" strokeWidth={1} size={24}/>
+        <IconWrapper style={{'--size': '24px'}}>
+          <Icon id='chevron-down' strokeWidth={2} size={24}/>
         </IconWrapper>
       </Presentation>
-        
-    </Wrapper>
-    
+  </Wrapper>
   );
 };
 
@@ -30,44 +28,45 @@ const Wrapper = styled.div`
   width: max-content;
 `;
 
-const SelectMenu = styled.select`
+const NativeSelect = styled.select`
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
-  appearance: none;
+  left: 0;
+  top: 0;
+  -webkit-appearance: none;
 `;
 
 const Presentation = styled.div`
-  font-family: 'Roboto', sans-serif;
+  color: ${COLORS.gray700};
   background-color: ${COLORS.transparentGray15};
   font-size: 1rem;
-  color: ${COLORS.gray700};
-  padding: 12px 16px;
-  padding-right: 52px;
+  padding: 12px 52px 12px 16px;
   border-radius: 8px;
 
-  ${SelectMenu}:hover + & {
+  ${NativeSelect}:hover + & {
     color: ${COLORS.black};
   }
 
-  ${SelectMenu}:focus + & {
-    outline: ${COLORS.primary} solid 2px;
+  ${NativeSelect}:focus + & {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
   }
 `;
 
 const IconWrapper = styled.div`
   position: absolute;
+  pointer-events: none;
+  right: 10px;
   top: 0;
   bottom: 0;
-  right: 10px;
-  width: 24px;
-  height: 24px;
   margin: auto;
-  pointer-events: none;
+  height: var(--size);
+  width: var(--size);
 `;
+
+
 
 
 export default Select;
